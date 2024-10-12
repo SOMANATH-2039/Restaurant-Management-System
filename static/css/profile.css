@@ -1,0 +1,115 @@
+.dropdown-container {
+	display: inline-block;
+	padding: 10px;
+}
+
+.dropdown-container .dropdown {
+	position: relative;
+}
+
+.dropdown-container .dropdown[open] .with-down-arrow::after {
+	content: "\e5c7";
+}
+
+.dropdown-container .dropdown[open] summary {
+	background: #ffffff10;
+}
+
+.dropdown-container .dropdown summary {
+	list-style: none;
+	display: inline-block;
+	cursor: pointer;
+	border-radius: 6px;
+	padding: 5px;
+	background-color: #fff;
+}
+
+.dropdown-container .dropdown summary.avatar {
+	border-radius: 50px;
+}
+
+.dropdown-container .dropdown summary.avatar img {
+	width: 40px;
+	height: 40px;
+	border-radius: 50px;
+	display: inline-block;
+	margin: 0;
+}
+
+.dropdown-container .dropdown summary.with-down-arrow {
+	display: inline-flex;
+	padding: 5px;
+	align-items: center;
+	color: #fff;
+	line-height: 1;
+	background-color: #ff34b2;
+}
+
+.dropdown-container .dropdown summary.with-down-arrow::after {
+	content: "\e5c5";
+	font-family: "Material Symbols Outlined";
+	font-size: 1.5rem;
+	display: inline-block;
+	-webkit-font-smoothing: antialiased;
+}
+
+.dropdown-container .dropdown.left ul {
+	left: 0;
+}
+
+.dropdown-container .dropdown.right ul {
+	right: 0;
+}
+
+.dropdown-container .dropdown ul {
+	padding: 0;
+	margin: 0;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	min-width: max-content;
+	position: absolute;
+	top: 100%;
+	border-radius: 10px;
+	background-color: #fff;
+	z-index: 2;
+}
+
+.dropdown-container .dropdown ul li {
+	list-style-type: none;
+	display: block;
+}
+
+.dropdown-container .dropdown ul li:first-of-type {
+	border: none;
+	background-color: #f2f2f2;
+}
+
+.dropdown-container .dropdown ul li a {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	padding: 10px 15px;
+	text-decoration: none;
+	color: #333;
+}
+
+.dropdown-container .dropdown ul li a:hover {
+	color: #ff34b2;
+	background-color: #f2f2f2;
+}
+
+.dropdown-container .dropdown ul li:first-of-type {
+	border-radius: 10px 10px 0 0;
+}
+
+.dropdown-container .dropdown ul li:last-of-type {
+	border-radius: 0 0 10px 10px;
+}
+
+.dropdown-container .dropdown ul li.divider {
+	border: none;
+	border-bottom: 1px solid #333;
+}
+
+.dropdown-container .dropdown ul li.divider ~ li {
+	border: none;
+}

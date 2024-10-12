@@ -1,0 +1,30 @@
+{% extends "main.html" %}
+{% block main %}
+
+<br><br><br><br><b><br><br></b>
+<h1>Order #{{ order.id }}</h1>
+<p>Order Date: {{ order.date_ordered }}</p>
+<p>Total Price: &#8377;{{ order.total_price }}</p>
+
+<h2>Order Items:</h2>
+<ul>
+    {% for item in order.order_items.all %}
+        <li>{{ item.product.name }} - {{ item.quantity }} x &#8377;{{ item.product.price }} = &#8377;{{ item.total_price }}</li>
+    {% endfor %}
+</ul>
+
+    {% if payment.status == 'FAILED' %}
+        <div class="alert alert-danger">
+            Payment failed. Please try again.
+        </div>
+        <a href="{% url 'process_payment' order.id %}" class="btn btn-primary">Retry Payment</a>
+    {% elif payment.status == 'PENDING' %}
+        <div class="alert alert-warning">
+            Your payment is still pending. Please wait for confirmation or try again later.
+        </div>
+    {% elif payment.status == 'SUCCESS' %}
+        <div class="alert alert-success">
+            Payment successful! Your order is confirmed.
+        </div>
+    {% endif %}
+{% endblock main %}

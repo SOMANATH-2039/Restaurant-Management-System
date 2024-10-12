@@ -1,0 +1,43 @@
+{% extends "main.html" %}
+
+{% block main %}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>User</th>
+            <th>Status</th>
+            <th>Total Price</th>
+            <th>Date Ordered</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for order in orders %}
+        <tr>
+            <td>{{ order.id }}</td>
+            <td>{{ order.user.username }}</td>
+            <td>
+                {% if order.status == 'Delivered' %}
+                <button class="btn btn-success" >{{ order.status }}</button>
+                {% elif order.status == 'Shipped' %}
+                <button class="btn btn-success" >{{ order.status }}</button>
+                {% elif order.status == 'Processing' %}
+                <button class="btn btn-primary" >{{ order.status }}</button>
+                {% elif order.status == 'Pending' %}
+                <button class="btn btn-info" >{{ order.status }}</button>
+                {% elif order.status == 'Cancelled' %}
+                <button class="btn btn-danger" >{{ order.status }}</button>
+                {% endif %}
+            </td>
+            <td>&#8377;{{ order.total_price }}</td>
+            <td>{{ order.date_ordered }}</td>
+            <td>
+                <a href="{% url 'admin_order_detail' order.id %}" class="btn btn-primary btn-sm">Details</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock main %}

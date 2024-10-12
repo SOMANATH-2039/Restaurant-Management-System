@@ -1,0 +1,86 @@
+<div class="dropdown-container">
+  <details class="dropdown right">
+    <summary class="avatar">
+      <img src="https://gravatar.com/avatar/00000000000000000000000000000000?d=mp">
+    </summary>
+    <ul>
+      <!-- Optional: user details area w/ gray bg -->
+      <li>
+        <p>
+          <span class="block bold">Jane Doe</span>
+          <span class="block italic">jane@example.com</span>
+        </p>
+      </li>
+      <!-- Menu links -->
+      <li>
+        <a href="#">
+          <span class="material-symbols-outlined">account_circle</span> Account
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <span class="material-symbols-outlined">settings</span> Settings
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <span class="material-symbols-outlined">help</span> Help
+        </a>
+      </li>
+      <!-- Optional divider -->
+      <li class="divider"></li>
+      <li>
+        <a href="#">
+          <span class="material-symbols-outlined">logout</span> Logout
+        </a>
+      </li>
+    </ul>
+  </details>
+</div>
+<!-- END: Dropdown Container -->
+
+
+<br><br><br><br>
+<br>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+    <h1>Payment Page</h1>
+    <button id="rzp-button">Pay Now</button>
+
+    <script>
+        var options = {
+            "key": "{{ razorpay_key }}",  // Razorpay Key ID
+            "amount": "{{ amount }}",  // Amount is in paise
+            "currency": "{{ currency }}",
+            "name": "Your Company Name",
+            "description": "Test Transaction",
+            "order_id": "{{ order_id }}",  // Razorpay Order ID
+            "handler": function (response) {
+                // After successful payment
+                window.location.href = "/payment-success/?payment_id=" + response.razorpay_payment_id + "&order_id=" + "{{ order_id }}";
+            },
+            "prefill": {
+                "name": "{{ user.get_full_name }}",
+                "email": "{{ user.email }}",
+                "contact": "Enter a valid phone number"
+            },
+            "theme": {
+                "color": "#3399cc"
+            }
+        };
+        var rzp1 = new Razorpay(options);
+        document.getElementById('rzp-button').onclick = function (e) {
+            rzp1.open();
+            e.preventDefault();
+        }
+    </script>
+</body>
+</html>

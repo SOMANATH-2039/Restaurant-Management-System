@@ -1,0 +1,59 @@
+{% extends "main.html" %}
+{% block main %}
+<h1>Your Orders</h1>
+
+{% if orders %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Date Ordered</th>
+                <th>Status</th>
+                <th>Total Price</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>{{ order.id }}</td>
+                <td>{{ order.date_ordered }}</td>
+                <td>
+                    {% if order.status == 'Delivered' %}
+                    <button class="btn btn-success" disabled>{{ order.status }}</button>
+                    {% elif order.status == 'Shipped' %}
+                    <button class="btn btn-success" disabled>{{ order.status }}</button>
+                    {% elif order.status == 'Processing' %}
+                    <button class="btn btn-primary" disabled>{{ order.status }}</button>
+                    {% elif order.status == 'Pending' %}
+                    <button class="btn btn-info" disabled>{{ order.status }}</button>
+                    {% elif order.status == 'Cancelled' %}
+                    <button class="btn btn-danger" disabled>{{ order.status }}</button>
+                    {% endif %}
+                    
+                </td>
+                <td>&#8377;{{ order.total_price }}</td>
+                <td>
+                    <a href="{% url 'order_detail' order.id %}" class="btn btn-info">View Details</a>
+
+                    {% if order.payment.status == 'FAILED' %}
+                        <a href="{% url 'process_payment' order.id %}" class="btn btn-primary">Retry Payment</a>
+                    {% elif order.payment.status == 'PENDING' %}
+                    <a href="{% url 'process_payment' order.id %}" class="btn btn-primary">Payment Pending</button>
+                    {% elif order.payment.status == 'SUCCESS' %}
+                        <button class="btn btn-success" disabled>Paid</button>
+                    {% endif %}
+                    {% if order.status == 'Pending' %}
+                        
+                            <a href="{% url 'cancel_order' order.id %}" class="btn btn-danger">Cancel Order</a>
+                        
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>You have no orders.</p>
+{% endif %}
+{% endblock main %}

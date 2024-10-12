@@ -1,0 +1,14 @@
+{% extends "main.html" %}
+{% block main %}
+
+<br><br><br><br><b><br><br></b>
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <a href="{% url 'employee_list' %}" class="btn btn-info">Manage Employee</a>
+        <a href="{% url 'order_list' %}" class="btn btn-info">Manage Orders</a>
+        <a href="{% url 'inventory_list' %}" class="btn btn-info">Manage Inventory</a>
+    </div>
+</div>
+
+<br><br><br><br><b><br><br></b>
+{% endblock main %}

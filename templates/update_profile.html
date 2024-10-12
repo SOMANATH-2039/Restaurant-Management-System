@@ -1,0 +1,78 @@
+{% extends "main.html" %}
+{% block main %}
+
+<section class="book_section layout_padding d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 text-center mb-5">
+        <h1 class="text-center">Update Profile</h1>
+      </div>
+    </div>
+    <div class="row justify-content-center align-items-center">
+      <div class="col-md-6">
+        <div class="form_container">
+          <form method="POST" action="{% url 'update_profile' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            {% if profile.profile_photo %}
+                <img src="{{ profile.profile_photo.url }}" alt="Profile Photo" width="100">
+            {% else %}
+                <img src="default-avatar.jpg" alt="Default Avatar" width="100">  <!-- Default avatar image -->
+            {% endif %}
+
+            <!-- Profile photo upload field -->
+            <div class="form-group">
+                
+                <input type="file" name="profile_photo" >
+            </div>
+
+
+            <div class="form-group">
+                <input type="text" id="first_name" name="first_name"  class="form-control" placeholder="First Name" value="{{user.first_name}}" required />
+            </div>
+            <div class="form-group">
+                <input type="text" id="last_name" name="last_name"  class="form-control" placeholder="Last Name" value="{{user.last_name}}" required />
+            </div>
+            <div class="form-group">
+                <input type="email" id="email" name="email"  class="form-control" placeholder="Email" value="{{user.email}}" required />
+            </div>
+            <!-- 
+            profile.phone = phone
+            profile.address1 = address1
+            profile.address2 = address2
+            profile.city = city
+            profile.state = state
+            profile.zipcode = zipcode
+            profile.country = country -->
+            <div class="form-group">
+                <input type="text" id="phone" name="phone"  class="form-control" placeholder="Phone Number" value="{{profile.phone}}" required />
+            </div>
+            <div class="form-group">
+                <input type="text" id="address1" name="address1" class="form-control" placeholder="Address 1" value="{{profile.address1}}" required />
+            </div>
+            <div class="form-group">
+                <input type="text"id="address2" name="address2"  class="form-control" placeholder="Address 2" value="{{profile.address2}}" required />
+            </div>
+            <div class="form-group">
+                <input type="text" id="city" name="city"  class="form-control" placeholder="City" value="{{profile.city}}" required />
+            </div>
+            <div class="form-group">
+                <input type="text" id="state" name="state"  class="form-control" placeholder="State" value="{{profile.state}}" required />
+            </div>
+            <div class="form-group">
+                <input type="text" id="zipcode" name="zipcode"  class="form-control" placeholder="PIN Code" value="{{profile.zipcode}}" required />
+            </div>
+            <div class="form-group">
+                <input type="text" id="country" name="country"  class="form-control" placeholder="Country" value="{{profile.country}}" required />
+            </div>
+            <div class="btn_box text-center mt-4">
+                <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock main %}

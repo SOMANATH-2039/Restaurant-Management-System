@@ -1,0 +1,88 @@
+{% extends "main.html" %}
+
+{% block main %}
+<section
+  class="book_section layout_padding d-flex align-items-center justify-content-center"
+  style="min-height: 100vh"
+>
+  <div class="container">
+    <h1 class="text-center">Add Inventory Item</h1>
+    <div class="row justify-content-center align-items-center">
+      <div class="col-md-6">
+        <div class="form_container">
+          <form method="POST">
+            {% csrf_token %}
+            <!-- Name Input -->
+            <div class="form-group">
+              <label for="name">Name:</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                class="form-control"
+                placeholder="Enter item name"
+                required
+              />
+            </div>
+
+            <!-- Category Input -->
+            <div class="form-group">
+              <label for="category">Category:</label>
+              <select name="category" id="category" class="form-control" required>
+                <option value="" disabled selected>Select a category</option>
+                {% for category in categories %}
+                <option value="{{ category.id }}">{{ category.name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <!-- Quantity Input -->
+            <div class="form-group">
+              <label for="quantity">Quantity:</label>
+              <input
+                type="number"
+                id="quantity"
+                name="quantity"
+                class="form-control"
+                placeholder="Enter quantity"
+                required
+              />
+            </div>
+
+            <!-- Price Input -->
+            <div class="form-group">
+              <label for="price">Price:</label>
+              <input
+                type="number"
+                id="price"
+                name="price"
+                step="0.01"
+                class="form-control"
+                placeholder="Enter price"
+                required
+              />
+            </div>
+
+            <!-- Description Input -->
+            <div class="form-group">
+              <label for="description">Description:</label>
+              <textarea
+                name="description"
+                id="description"
+                class="form-control"
+                rows="3"
+                placeholder="Enter item description"
+              ></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-group text-center">
+              <button type="submit" class="btn btn-primary">Add Item</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock main %}

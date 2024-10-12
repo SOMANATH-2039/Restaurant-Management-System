@@ -1,0 +1,47 @@
+<!-- templates/employee/employee_list.html -->
+{% extends 'main.html' %}
+{% block main %}
+{% if user.is_superuser %}
+<div class="container mt-5">
+    <h2 class="text-center">Employee List</h2>
+    
+    <a href="{% url 'employee_add' %}" class="btn btn-primary mb-3">Add New Employee</a>
+  
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Department</th>
+                <th>Position</th>
+                <th>Salary</th>
+                <th>Date of Hire</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for employee in employees %}
+            <tr>
+                <td>{{ employee.first_name }}</td>
+                <td>{{ employee.last_name }}</td>
+                <td>{{ employee.email }}</td>
+                <td>{{ employee.phone_number }}</td>
+                <td>{{ employee.department }}</td>
+                <td>{{ employee.position }}</td>
+                <td>{{ employee.salary }}</td>
+                <td>{{ employee.date_of_hire }}</td>
+                <td>
+                    <a href="{% url 'employee_edit' employee.pk %}" class="btn btn-warning">Edit</a>
+                    <a href="{% url 'employee_delete' employee.pk %}" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+
+{% endif %}
+{% endblock main %}

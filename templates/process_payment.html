@@ -1,0 +1,32 @@
+{% extends "main.html" %}
+
+{% block main %}
+  
+
+
+<h1>Pay for Order #{{ order_id }}</h1>
+<p>Order Date: {{ order.date_ordered }}</p>
+<p>Total Price: &#8377;{{ order.total_price }}</p>
+
+<h2>Order Items:</h2>
+<ul>
+    {% for item in order.order_items.all %}
+        <li>{{ item.product.name }} - {{ item.quantity }} x &#8377;{{ item.product.price }} = &#8377;{{ item.total_price }}</li>
+    {% endfor %}
+</ul>
+
+<form action="{% url 'payment_success' %}" method="POST">
+    <script
+        src="https://checkout.razorpay.com/v1/checkout.js"
+        data-key="{{ razorpay_key_id }}"  # Merchant's Razorpay API Key
+        data-amount="{{ amount }}"  # Amount in paise
+        data-currency="INR"
+        data-order_id="{{ razorpay_order_id }}"  # Razorpay order ID
+        data-buttontext="Pay Now"
+        data-name="Your Company"
+        data-description="Order Payment"
+        data-theme.color="#F37254">
+    </script>
+    <input type="hidden" name="razorpay_order_id" value="{{ razorpay_order_id }}">
+</form>
+{% endblock main %}

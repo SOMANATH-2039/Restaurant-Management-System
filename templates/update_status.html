@@ -1,0 +1,20 @@
+{% extends "main.html" %}
+
+{% block main %}
+  
+<form method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="status">Order Status</label>
+        <select class="form-control" name="status" id="status">
+            {% for status, display in statuses %}
+                <option value="{{ status }}" {% if order.status == status %}selected{% endif %}>
+                    {{ display }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+    <button type="submit" class="btn btn-success">Update Status</button>
+</form>
+
+{% endblock main %}

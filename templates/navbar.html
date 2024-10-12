@@ -1,0 +1,166 @@
+{% load static %}
+<header class="header_section bg-dark">
+  <div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark custom_nav-container">
+
+      <!-- Brand Logo -->
+      <a class="navbar-brand" href="{% url 'home' %}">
+        <span>Feane</span>
+      </a>
+
+      <!-- Toggler button for mobile view -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Navbar Links -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mx-auto">
+
+          <!-- Home Link -->
+          <li class="nav-item {% if request.path == '/' %}active{% endif %}">
+            <a class="nav-link" href="{% url 'home' %}">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+
+          <!-- Menu Link -->
+          <li class="nav-item {% if request.path == '/menu/menuitems/' %}active{% endif %}">
+            <a class="nav-link" href="{% url 'menu' %}">Menu
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+
+          <!-- About Link -->
+          <li class="nav-item {% if request.path == '/about/' %}active{% endif %}">
+            <a class="nav-link" href="{% url 'about' %}">About
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+
+          <!-- Book Table Link -->
+          <li class="nav-item {% if request.path == '/book_table/' %}active{% endif %}">
+            <a class="nav-link" href="{% url 'book_table' %}">Book Table
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+
+        </ul>
+
+
+        <!-- Cart Icon -->
+        <form class="d-flex">
+          <a href="{% url 'cart_detail' %}" class="btn btn-outline-success">
+              <i class="bi-cart-fill me-1"></i>
+              Cart
+              <span class="badge bg-success text-white ms-1 rounded-pill" id='cart_quantity'>
+                {{ cart_total_items }}
+              </span>
+          </a>
+        </form>
+
+        <!-- Search Form -->
+        <div class="container" style="max-width: 200px;">
+          <div class="row">
+            <div class="col-md-10 d-flex align-items-center">
+              <!-- Input field (Search Bar) -->
+              <form class="d-flex w-100" method="POST" action="{% url 'search' %}">
+                {% csrf_token %}
+                <input class="form-control " type="search" name="searched" placeholder="Search" aria-label="Search"
+                  style="flex: 1;" required>
+                <button class="btn btn-outline-light my-2 my-sm-0" type="submit">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- Order Online Button -->
+        <!-- <a href="#" class="btn btn-primary ml-3">
+          Order Online
+        </a> -->
+
+        <!-- User Options -->
+        {% if user.is_authenticated %}
+        <div class="dropdown-container">
+          <details class="dropdown right">
+            {% if profile_image %}
+            <summary class="avatar">
+                <img src="{{ profile_image }}" alt="Profile Photo" width="100">
+              </summary>
+            {% else %}
+            <summary class="avatar">
+              <img src="https://gravatar.com/avatar/00000000000000000000000000000000?d=mp">
+            </summary>
+            {% endif %}
+
+            <ul>
+              <!-- Optional: user details area w/ gray bg -->
+              <!-- Menu links -->
+
+              <li>
+                <a href="{% url 'update_profile' %}">
+                  <span class="material-symbols-outlined">account_circle</span> Account
+                </a>
+              </li>
+              {% if user.is_superuser %}
+              <li>
+                <a href="{% url 'dashboard' %}">
+                  <span class="material-symbols-outlined">space_dashboard</span>Dash board
+                </a>
+              </li>
+              {% else %}
+              <li>
+                <a href="{% url 'customer_orders' %}">
+                  <span class="material-symbols-outlined">space_dashboard</span> Orders
+                </a>
+              </li>
+              {% endif %}
+              
+              
+              <li>
+                <a href="#">
+                  <span class="material-symbols-outlined">help</span> Help
+                </a>
+              </li>
+              <!-- Optional divider -->
+              <li class="divider"></li>
+              <li>
+                <a href="{% url 'logout' %}">
+                  <span class="material-symbols-outlined">logout</span> Logout
+                </a>
+              </li>
+            </ul>
+          </details>
+        </div>
+        {% else %}
+        <div class="dropdown-container">
+        <details class="dropdown right">
+          <summary class="avatar">
+            <img src="https://gravatar.com/avatar/00000000000000000000000000000000?d=mp">
+          </summary>
+          <ul>
+            <li>
+              <a href="{% url 'register' %}">
+                <span class="material-symbols-outlined">how_to_reg</span> Register
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'login_user' %}">
+                <span class="material-symbols-outlined">login</span> Login
+              </a>
+            </li>
+          </ul>
+
+        </details>
+      </div>
+      {% endif %}
+      <!-- END: Dropdown Container -->
+
+
+  </div>
+  </div>
+  </nav>
+  </div>
+</header>

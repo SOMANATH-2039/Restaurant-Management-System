@@ -1,0 +1,9 @@
+{% extends "main.html" %}
+
+{% block main %}
+<form method="POST">
+    {% csrf_token %}
+    <p>Are you sure you want to mark this order as paid?</p>
+    <button type="submit" class="btn btn-success">Mark as Paid</button>
+</form>
+{% endblock main %}
