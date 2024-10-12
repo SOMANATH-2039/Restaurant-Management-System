@@ -29,7 +29,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS=[]
+CSRF_TRUSTED_ORIGINS=['https://restaurant-management-system-typ1.onrender.com']
 
 # Application definition
 
